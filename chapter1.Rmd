@@ -10,6 +10,7 @@ My supervisor recommended this course to me, and I believe it will be very usefu
 
 ## Links
 * [My GitHub repository](https://github.com/sviitama/IODS-project-1)
+* [My course diary]()
 
 
 ***
@@ -17,7 +18,7 @@ My supervisor recommended this course to me, and I believe it will be very usefu
 I am a MSc in microbiology, I graduated last September. Now I have started my PhD project, where I will study the **functions and activity of microbial communities in Arctic and subarctic soils**. I work in Jenni Hultman's research group, [Arctic Microbial Ecology](https://www.helsinki.fi/en/researchgroups/molecular-environmental-biosciences/research/arctic-microbial-ecology).
 Here you can find [my TUHAT page](https://researchportal.helsinki.fi/fi/persons/sirja-viitam%C3%A4ki).
 
-This is my cat:
+<span style="color:blue">This is my cat:</span>
 
 ![Hi, my name is Harmi!](Z:/Henkilökohtaiset/kisse_pien.jpg)
 
