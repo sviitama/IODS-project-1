@@ -3,16 +3,21 @@
 
 ## Introduction to Open Data Science 2019
 I am attending Introduction to Open Data Science (IODS) course fall 2019.
-My supervisor recommended this course to me, and I believe it is *very useful* for me.
 
-Here you can find useful [Links](#anchor).
+The course helps participants to understand possibilities of **open science, open data, and open research** tools. Here I will learn to use a few open software tools like [R](https://www.r-project.org/) and [GitHub](https://github.com/), and to visualize and analyze data sets with some fairly advanced statistical methods.
+
+My supervisor recommended this course to me, and I believe it will be very useful for me.
+
+## Links
+* [My GitHub repository](https://github.com/sviitama/IODS-project-1)
 
 
-This is me:
-![Sirja Viitamäki](https://researchportal.helsinki.fi/files-asset/115213845/CV_3.jpg)
+***
+## About me
+I am a MSc in microbiology, I graduated last September. Now I have started my PhD project, where I will study the **functions and activity of microbial communities in Arctic and subarctic soils**. I work in Jenni Hultman's research group, [Arctic Microbial Ecology](https://www.helsinki.fi/en/researchgroups/molecular-environmental-biosciences/research/arctic-microbial-ecology).
+Here you can find [my TUHAT page](https://researchportal.helsinki.fi/fi/persons/sirja-viitam%C3%A4ki)
 
+This is my cat:
 
-# Links
-[My GitHub repository] https://github.com/sviitama/IODS-project-1
-[My TUHAT page] https://researchportal.helsinki.fi/fi/persons/sirja-viitam%C3%A4ki
-[Arctic Microbial Ecology] https://www.helsinki.fi/en/researchgroups/molecular-environmental-biosciences/research/arctic-microbial-ecology
+![Hi, my name is Harmi!](Z:/Henkilökohtaiset/kisse_pien.jpg)
+
