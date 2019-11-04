@@ -1,4 +1,18 @@
 
 # About the project
 
-*Write a short description about the course and add a link to your GitHub repository here. This is an R Markdown (.Rmd) file so you can use R Markdown syntax.*
+## Introduction to Open Data Science 2019
+I am attending Introduction to Open Data Science (IODS) course fall 2019.
+My supervisor recommended this course to me, and I believe it is *very useful* for me.
+
+Here you can find useful [Links](#anchor).
+
+
+This is me:
+![Sirja Viitamäki](https://researchportal.helsinki.fi/files-asset/115213845/CV_3.jpg)
+
+
+# Links
+[My GitHub repository] https://github.com/sviitama/IODS-project-1
+[My TUHAT page] https://researchportal.helsinki.fi/fi/persons/sirja-viitam%C3%A4ki
+[Arctic Microbial Ecology] https://www.helsinki.fi/en/researchgroups/molecular-environmental-biosciences/research/arctic-microbial-ecology
