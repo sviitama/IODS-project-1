@@ -10,7 +10,7 @@ My supervisor recommended this course to me, and I believe it will be very usefu
 
 ## Links
 * [My GitHub repository](https://github.com/sviitama/IODS-project-1)
-* [My course diary]()
+* [My course diary](https://sviitama.github.io/IODS-project-1/)
 
 
 ***
