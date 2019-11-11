@@ -5,7 +5,7 @@
 # Set working directory
 setwd("Z:/Jatko-opinnot/IODS/IODS-project-1")
 
-# access needed libraries
+# Access needed libraries
 library(ggplot2)
 library(GGally)
 ```
@@ -30,6 +30,15 @@ p <- ggpairs(learning2014, mapping = aes(col = gender, alpha = 0.3), lower = lis
 p
 ```
 
+
+
+
+
+***
+> [Here](https://www.mv.helsinki.fi/home/kvehkala/JYTmooc/JYTOPKYS3-meta.txt) you can find more information on the data. 
+
+
+
 ## Exercise 3
 ```{r}
 # create a regression model with three explanatory variables
@@ -39,14 +48,17 @@ reg_model <- lm(points ~ attitude + stra + age, data = learning2014)
 summary(reg_model)
 
 # Try with other variables
-reg_model <- lm(points ~ attitude + age, data = learning2014)
+reg_model2 <- lm(points ~ stra + age + deep, data = learning2014)
 
 # print out a summary of the model
-summary(reg_model)
+summary(reg_model2)
 ```
 
+
+
+
 ## Exercise 4
-By trying different variable combinations in the model, it could be seen that only attitude had significant relationship with the points.
+By trying different variable combinations in the model, it could be seen that attitude had significant relationship with the points, whenever it was included in the model. In addtion, strategic learning had a significant correlation with the points, when attitude was not included in the model. Age had some correlation with the points. but it was not significant.
 
 ## Exercise 5
 ```{r}
