@@ -1,7 +1,62 @@
-# Insert chapter 2 title here
+# Analysis excercise
 
 *Describe the work you have done this week and summarize your learning.*
 
 - Describe your work and results clearly. 
 - Assume the reader has an introductory course level understanding of writing and reading R code as well as statistical methods.
 - Assume the reader has no previous knowledge of your data or the more advanced methods you are using.
+
+## Preparations
+```{r}
+# Set working directory
+setwd("Z:/Jatko-opinnot/IODS/IODS-project-1")
+
+# access needed libraries
+library(ggplot2)
+library(GGally)
+```
+
+## Exercise 1
+```{r}
+# Read the learning2014 data
+learning2014 <- read.csv("learning2014.csv")
+
+# Explore the data
+str(learning2014)
+dim(learning2014)
+
+```
+
+## Exercise 2
+```{r}
+# create a plot matrix with ggpairs()
+p <- ggpairs(learning2014, mapping = aes(col = gender, alpha = 0.3), lower = list(combo = wrap("facethist", bins = 20)))
+
+# draw the plot
+p
+```
+
+## Exercise 3
+```{r}
+# create a regression model with three explanatory variables
+reg_model <- lm(points ~ attitude + stra + age, data = learning2014)
+
+# print out a summary of the model
+summary(reg_model)
+
+# Try with other variables
+reg_model <- lm(points ~ attitude + age, data = learning2014)
+
+# print out a summary of the model
+summary(reg_model)
+```
+
+## Exercise 4
+By trying different variable combinations in the model, it could be seen that only attitude had significant relationship with the points.
+
+## Exercise 5
+```{r}
+# draw diagnostic plots : Residuals vs Fitted values, Normal QQ-plot and Residuals vs Leverage
+plot(reg_model, which = c(1,2,5), par(mfrow = c(2,2)))
+
+```
