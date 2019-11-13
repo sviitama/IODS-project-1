@@ -12,7 +12,7 @@ library(GGally)
 
 ## Exercise 1
 ```{r}
-# Read the learning2014 data
+# Read the learning2014 data from folder "data"
 learning2014 <- read.csv("data/learning2014.csv")
 
 # Explore the data
