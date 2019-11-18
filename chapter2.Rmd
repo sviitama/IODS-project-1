@@ -1,16 +1,16 @@
-# Week 2: Analysis excercise
+# Week 2: Regression and model validation
 
-## Preparations
+### Preparations
 ```{r}
 # Set working directory
-setwd("Z:/Jatko-opinnot/IODS/IODS-project-1")
+setwd("C:/Users/sirja/Documents/IODS-project-1")
 
 # Access needed libraries
 library(ggplot2)
 library(GGally)
 ```
 
-## Exercise 1
+### Exercise 1
 ```{r}
 # Read the learning2014 data from folder "data"
 learning2014 <- read.csv("data/learning2014.csv")
@@ -21,7 +21,7 @@ dim(learning2014)
 
 ```
 
-## Exercise 2
+### Exercise 2
 ```{r}
 # create a plot matrix with ggpairs()
 p <- ggpairs(learning2014, mapping = aes(col = gender, alpha = 0.3), lower = list(combo = wrap("facethist", bins = 20)))
@@ -39,7 +39,7 @@ p
 
 
 
-## Exercise 3
+### Exercise 3
 ```{r}
 # create a regression model with three explanatory variables
 reg_model <- lm(points ~ attitude + stra + age, data = learning2014)
@@ -57,10 +57,10 @@ summary(reg_model2)
 
 
 
-## Exercise 4
+### Exercise 4
 By trying different variable combinations in the model, it could be seen that attitude had significant relationship with the points, whenever it was included in the model. In addtion, strategic learning had a significant correlation with the points, when attitude was not included in the model. Age had some correlation with the points. but it was not significant.
 
-## Exercise 5
+### Exercise 5
 ```{r}
 # draw diagnostic plots : Residuals vs Fitted values, Normal QQ-plot and Residuals vs Leverage
 plot(reg_model, which = c(1,2,5), par(mfrow = c(2,2)))

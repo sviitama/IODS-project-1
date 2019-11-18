@@ -1,26 +1,114 @@
-# Week 3: Analysis excercise
+# Week 3: Logistic regression
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+### Preparations
+
+```{r warning=FALSE, message=FALSE}
+# Set working directory
+setwd("C:/Users/sirja/Documents/IODS-project-1")
+
+# Access needed libraries
+library(tidyverse)
+
 ```
 
-## R Markdown
+### Data introduction and hypotheses
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+```{r}
+alc <- read.csv("data/joined_data.csv")
+glimpse(alc)
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+```
+Dataset "alc" contains data collected from secondary school students. Data includes information on the students' background, grades, and alcohol consumption.
+Find more information on the data from [here](https://archive.ics.uci.edu/ml/datasets/Student+Performance).
 
-```{r cars}
-summary(cars)
+Purpose of this analysis is to study the relationships between high/low alcohol consumption and chosen variables in the data. I am interested in how the family, friends and romantic relationships affect the alcohol usage of the students, so I chose these four variables:
+
+famrel - quality of family relationships (numeric: from 1 - very bad to 5 - excellent)
+famsup - family educational support (binary: yes or no)
+romantic - with a romantic relationship (binary: yes or no)
+goout - going out with friends
+
+
+**present your personal hypothesis about their relationships with alcohol consumption.
+
+### Data exploration
+Numerically and graphically explore the distributions of your chosen variables and their relationships with alcohol consumption (use for example cross-tabulations, bar plots and box plots). Comment on your findings and compare the results of your exploration to your previously stated hypotheses
+
+```{r warning=FALSE}
+var <- c("goout", "famsup", "romantic", "famrel", "alc_use", "high_use")
+alc_family <- subset(alc, select = var)
+
+gather(alc_family) %>% glimpse()
+
+gather(alc_family) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") + geom_bar()
+
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
+```{r warning=FALSE}
+# produce summary statistics by group
+alc_family %>% group_by(famsup, high_use) %>% summarise(count = n(), mean_goout = mean(goout), mean_famrel = mean(famrel), mean_alcuse = mean(alc_use))
 
-```{r pressure, echo=FALSE}
-plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+g1 <- ggplot(alc_family, aes(x = high_use, y = famrel, col = romantic))
 
+# define the plot as a boxplot and draw it
+g1 + geom_boxplot() + ylab("Family relation") + xlab("High alcohol usage")
+```
+
+
+```{r}
+# initialise a plot of high_use and going out
+g2 <- ggplot(alc_family, aes(x = high_use, y = goout, col = romantic))
+
+# define the plot as a boxplot and draw it
+g2 + geom_boxplot() + ylab("Going out") + xlab("High alcohol usage") + ggtitle("Going out by alcohol use and relationship status")
+
+```
+
+### Logistic regression
+```{r}
+# find the model with glm()
+m <- glm(high_use ~ goout + famsup + famrel + romantic, data = alc, family = "binomial")
+
+# print out a summary of the model
+summary(m)
+
+# print out the coefficients of the model
+coef(m)
+
+
+
+```
+
+```{r message=FALSE}
+# compute odds ratios (OR) and confidence intervals (CI)
+OR <- coef(m) %>% exp
+CI <- confint(m) %>% exp
+
+# print out the odds ratios with their confidence intervals
+cbind(OR, CI)
+
+```
+
+```{r}
+# fit the model
+m <- glm(high_use ~ famrel+ goout, data = alc, family = "binomial")
+# predict() the probability of high_use
+probabilities <- predict(m, type = "response")
+# add the predicted probabilities to 'alc'
+alc <- mutate(alc, probability = probabilities)
+# use the probabilities to make a prediction of high_use
+alc <- mutate(alc, prediction = probability > 0.5)
+# tabulate the target variable versus the predictions
+table(high_use = alc$high_use, prediction = alc$prediction)
+
+
+```
+
+```{r}
+
+
+```
