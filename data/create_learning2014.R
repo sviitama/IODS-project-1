@@ -1,6 +1,6 @@
 # Sirja Viitamaki
 # 11.11.2019
-# This scripts creates a modified version of the original dataset: questions related to a certain type of learning (deep, surface and strategic) are summed.
+# This script creates a modified version of the original dataset: questions related to a certain type of learning (deep, surface and strategic) are summed.
 
 # access needed libraries
 library(dplyr)

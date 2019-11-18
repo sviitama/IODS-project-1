@@ -1,0 +1,3 @@
+# Sirja Viitamaki
+# 18.11.2019
+# This script ...
