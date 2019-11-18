@@ -11,29 +11,36 @@ library(tidyverse)
 
 ```
 
-### Data introduction and hypotheses
+
+### Data introduction and hypotheses (tasks 2 & 3)
 
 ```{r}
+# read the modified and joined dataset
 alc <- read.csv("data/joined_data.csv")
+# take a look of the data
 glimpse(alc)
 
 ```
+
 Dataset "alc" contains data collected from secondary school students. Data includes information on the students' background, grades, and alcohol consumption.
 Find more information on the data from [here](https://archive.ics.uci.edu/ml/datasets/Student+Performance).
 
-Purpose of this analysis is to study the relationships between high/low alcohol consumption and chosen variables in the data. I am interested in how the family, friends and romantic relationships affect the alcohol usage of the students, so I chose these four variables:
+Purpose of this analysis is to study the relationships between alcohol consumption and chosen variables in the data. I am interested in how the family, friends and romantic relationships affect the alcohol usage of the students, so I chose these four variables:
 
-famrel - quality of family relationships (numeric: from 1 - very bad to 5 - excellent)
-famsup - family educational support (binary: yes or no)
-romantic - with a romantic relationship (binary: yes or no)
-goout - going out with friends
+* famrel - quality of family relationships (numeric: from 1 - very bad to 5 - excellent)
+* famsup - family educational support (binary: yes or no)
+* romantic - with a romantic relationship (binary: yes or no)
+* goout - going out with friends (numeric: from 1 - very low to 5 - very high)
+
+I hypothesize that the chosen variables and alcohol consumption have following relationships:
+
+* H1 Good family relations are connected to low alcohol usage
+* H2 Family educational support is connected to low alcohol usage
+* H3 Romantic relationship does not have a clear connection with alcohol usage
+* H4 Going out with friends is connected to high alcohol usage
 
 
-**present your personal hypothesis about their relationships with alcohol consumption.
-
-### Data exploration
-Numerically and graphically explore the distributions of your chosen variables and their relationships with alcohol consumption (use for example cross-tabulations, bar plots and box plots). Comment on your findings and compare the results of your exploration to your previously stated hypotheses
-
+### Data exploration (task 4)
 ```{r warning=FALSE}
 var <- c("goout", "famsup", "romantic", "famrel", "alc_use", "high_use")
 alc_family <- subset(alc, select = var)
@@ -44,12 +51,24 @@ gather(alc_family) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") +
 
 ```
 
+Barplot shows that observations of alcohol usage is skewed so that there are much more observations of low alcohol consuption, thus there are also more false observations of high alcohol use. Variable "goout" is normally distributed, whereas famrel is slightly skewed to higher values, meaning that most students have good family relations in this dataset. Additionally, most students are not in a romantic relationship and most get educational support from their families.
+
 
 ```{r warning=FALSE}
 # produce summary statistics by group
 alc_family %>% group_by(famsup, high_use) %>% summarise(count = n(), mean_goout = mean(goout), mean_famrel = mean(famrel), mean_alcuse = mean(alc_use))
 
 ```
+
+By looking this table, it seems that students who go out often use more alcohol than the ones who don't go out. Also, having good family relationships and getting family support for studying might be connected to lower usage of alcohol.  
+
+```{r warning=FALSE}
+# produce summary statistics by group
+alc_family %>% group_by(romantic, high_use) %>% summarise(count = n(), mean_goout = mean(goout), mean_famrel = mean(famrel), mean_alcuse = mean(alc_use))
+
+```
+
+Interestingly, it also looks like the ones who are not in a romantic relationship, might use more alcohol if their family relationship is poor.
 
 ```{r}
 g1 <- ggplot(alc_family, aes(x = high_use, y = famrel, col = romantic))
@@ -58,6 +77,7 @@ g1 <- ggplot(alc_family, aes(x = high_use, y = famrel, col = romantic))
 g1 + geom_boxplot() + ylab("Family relation") + xlab("High alcohol usage")
 ```
 
+This boxplot shows indeed that the students not in a relationship are more often high alcohol consumers, when their family relationship is not good. 
 
 ```{r}
 # initialise a plot of high_use and going out
@@ -68,7 +88,10 @@ g2 + geom_boxplot() + ylab("Going out") + xlab("High alcohol usage") + ggtitle("
 
 ```
 
-### Logistic regression
+Going out with friends seemed to be connected positively with high alcohol usage, whether the student was is a relationship or not. 
+
+
+### Logistic regression (task 5)
 ```{r}
 # find the model with glm()
 m <- glm(high_use ~ goout + famsup + famrel + romantic, data = alc, family = "binomial")
@@ -83,6 +106,13 @@ coef(m)
 
 ```
 
+Based on the model, going out with friends is positively correlated (estimate of coefficient = 0.7956) with higher alcohol usage, and it is also statistically significant (p<0.001)
+Model also shows that good family relations correlate negatively (estimate of coefficient = -0.3770) with high alcohol usage with significance of p<0.01.
+Having family support on studies and romantic relationship both correlated negatively but unsignificantly with high alcohol consumption.
+
+**Conclusions:** Students who often go out with their friends are more likely to consume higher amounts of alcohol than the ones who don't go out so often. Also, students with good family relations are less likely high alcohol consumers compared to those who have worse relationship with their families.
+Thus, hypotheses H1, H3, and H4 were confirmed.
+
 ```{r message=FALSE}
 # compute odds ratios (OR) and confidence intervals (CI)
 OR <- coef(m) %>% exp
@@ -92,6 +122,9 @@ CI <- confint(m) %>% exp
 cbind(OR, CI)
 
 ```
+
+
+### Binary predictions (task 6)
 
 ```{r}
 # fit the model
@@ -108,7 +141,6 @@ table(high_use = alc$high_use, prediction = alc$prediction)
 
 ```
 
-```{r}
-
-
-```
+Based on the table above, training error can be calculated: 
+(68+25)/382 = 0,243455... = 24 %.
+This means that the **model correctly predicted the alcohol usage of the students in 76 % of the cases**. 
