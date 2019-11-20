@@ -1,0 +1,31 @@
+# Week 4. Clustering and classification
+
+### Preparations
+
+setwd("C:/Users/sirja/Documents/IODS-project-1")
+```{r warning=FALSE, message=FALSE}
+# Set working directory
+
+
+# Access needed libraries
+library(MASS)
+
+```
+
+```{r}
+# load the data
+data("Boston")
+
+# explore the dataset
+str(Boston)
+summary(Boston)
+```
+
+Dataset "Boston" is a ... 506 rows and 14 columns
+More information on the data can be found  [here](https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/Boston.html).
+
+```{r}
+# plot matrix of the variables
+pairs(Boston)
+```
+
