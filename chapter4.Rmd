@@ -210,7 +210,7 @@ pairs(boston_scaled, col = c("#fc90d9", "#8de6a0")[km$cluster], lower.panel = NU
 
 ```
 
-Let's call the clustered towns pink and green towns and see how the different variables vary between these towns. 
+Let's call the clustered towns pink and green towns and see how selected variables vary between these towns. 
 Crime rates are low in the pink towns, in green towns there is more variation in crime rates. In the green towns, there is more industry and also more nitrogen oxides in the air than in the pink towns.
 In pink towns there are larger apartments and the proportion of blacks is low, whereas in green towns the proportion of black inhabitants vary more. In green towns the median value of owner-occupied homes is lower than in pink towns.
 Based on these results it seems that there is inequality between the towns of Boston.
