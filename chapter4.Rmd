@@ -22,7 +22,7 @@ data("Boston")
 str(Boston)
 ```
 
-Dataset "Boston" contains housing values in suburbs of Boston. It is a matrix with 506 rows and 14 columns. Rows are the unnamed suburbs and columns are variables such as crime rate  of pupil-teacher ratio by town.
+Dataset "Boston" contains housing values in suburbs of Boston. It is a matrix with 506 rows and 14 columns. Rows are towns in Boston and columns are variables such as crime rate  or pupil-teacher ratio by town.
 More information on the data can be found [here](https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/Boston.html).
 
 
@@ -39,11 +39,13 @@ corrplot(cor_matrix, method="circle", type = "upper", cl.pos = "b", tl.pos = "d"
 
 ```
 
-***Describe and interpret the outputs, commenting on the distributions of the variables and the relationships between them.***
-strong negative correlation: dis & age, dis & nox, dis & indus
-strong positive correlation: rad & tax, nox & indus, nox & age, tax & indus, rm & medv 
+This correlation plot shows the correlation between the variables. 
 
-Color intensity and the size of the circle are proportional to the correlation coefficients.
+>  "[The corrplot package](https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html) is a graphical display of a correlation matrix, confidence interval. It also contains some algorithms to do matrix reordering. In addition, corrplot is good at details, including choosing color, text labels, color labels, layout, etc. 
+Positive correlations are displayed in blue and negative correlations in red color. Color intensity and the size of the circle are proportional to the correlation coefficients."
+
+Strongest *negative* correlation can be seen between variables dis & age, dis & nox, dis & indus.
+Variables with strongest *positive* correlation are rad & tax, nox & indus, nox & age, tax & indus, rm & medv.
 
 
 ### Task 4
@@ -65,7 +67,7 @@ summary(boston_scaled$crim)
 
 ```
 
-***How did the variables change?***
+Variables change so that their mean is always zero, and maximum and minimum values are more in a similar scale, approximately from -5 to 10.
 
 
 Create a categorical variable of the crime rate with quantiles as the break points.
@@ -87,6 +89,7 @@ boston_scaled <- dplyr::select(boston_scaled, -crim)
 boston_scaled <- data.frame(boston_scaled, crime)
 
 ```
+
 
 Divide the dataset to train and test sets, so that 80% of the data belongs to the train set.
 ```{r}
@@ -147,7 +150,8 @@ lda.pred <- predict(lda.fit, newdata = test)
 table(correct = correct_classes, predicted = lda.pred$class)
 ```
 
-The classifier prdicted classes *low* and *high* correctly. For *med_high* there were 5 and for *med_low* even 23 false predictions.
+The first time I did the prediction, the classifier predicted classes *low* and *high* correctly. For *med_high* and *med_low* there were several false predictions. I tried the prediction again few times and there were false predictions for all other classes but high. This model seems to predict high crime rates accurately, but with lower crime rates there is more uncertainty.
+
 
 ### Task 7
 
@@ -159,19 +163,13 @@ boston_scaled <- scale(Boston)
 boston_scaled <- as.data.frame(boston_scaled)
 ```
 
-Calculate the distances between the observations
+Calculate Euclidean distances between the observations
 ```{r}
 # euclidean distance matrix
 dist_eu <- dist(boston_scaled)
 
 # look at the summary of the distances
 summary(dist_eu)
-
-# manhattan distance matrix
-dist_man <- dist(Boston, method = "manhattan")
-
-# look at the summary of the distances
-summary(dist_man)
 ```
 
 
@@ -197,7 +195,7 @@ twcss <- sapply(1:k_max, function(k){kmeans(boston_scaled, k)$tot.withinss})
 qplot(x = 1:k_max, y = twcss, geom = 'line')
 ```
 
-Seems like two is a good number of clusters.
+Based on the curve two is a good number of clusters.
 
 ```{r}
 # k-means clustering
@@ -212,4 +210,9 @@ pairs(boston_scaled, col = c("#fc90d9", "#8de6a0")[km$cluster], lower.panel = NU
 
 ```
 
-*Interpret results*
+Let's call the clustered towns pink and green towns and see how the different variables vary between these towns. 
+Crime rates are low in the pink towns, in green towns there is more variation in crime rates. In the green towns, there is more industry and also more nitrogen oxides in the air than in the pink towns.
+In pink towns there are larger apartments and the proportion of blacks is low, whereas in green towns the proportion of black inhabitants vary more. In green towns the median value of owner-occupied homes is lower than in pink towns.
+Based on these results it seems that there is inequality between the towns of Boston.
+
+***
