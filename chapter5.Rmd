@@ -1,0 +1,29 @@
+# Week 5. Dimensionality reduction techniques
+
+### Task 2
+
+```{r warning=FALSE, message=FALSE}
+# Set working directory
+#setwd("Z:/Jatko-opinnot/IODS/IODS-project-1")
+setwd("C:/Users/sirja/Documents/IODS-project-1")
+
+# Access needed libraries
+library("tidyverse")
+
+```
+
+```{r}
+# load the data
+
+
+# explore the dataset
+```
+
+
+
+
+### Task 3
+```{r}
+
+
+```
