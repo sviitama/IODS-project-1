@@ -3,8 +3,8 @@
 ## Preparations
 ```{r, warning=FALSE, message=FALSE}
 # Set working directory
-#setwd("C:/Users/sirja/Documents/IODS-project-1")
-setwd("Z:/Jatko-opinnot/IODS/IODS-project-1")
+setwd("C:/Users/sirja/Documents/IODS-project-1")
+#setwd("Z:/Jatko-opinnot/IODS/IODS-project-1")
 
 # Access needed libraries
 library(ggplot2)

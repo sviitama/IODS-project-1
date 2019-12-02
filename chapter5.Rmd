@@ -4,8 +4,8 @@
 
 ```{r warning=FALSE, message=FALSE}
 # Set working directory
-setwd("Z:/Jatko-opinnot/IODS/IODS-project-1")
-#setwd("C:/Users/sirja/Documents/IODS-project-1")
+#setwd("Z:/Jatko-opinnot/IODS/IODS-project-1")
+setwd("C:/Users/sirja/Documents/IODS-project-1")
 
 # Access needed libraries
 library("tidyverse")
@@ -79,7 +79,6 @@ tea_time <- dplyr::select(tea, one_of(keep_columns))
 
 # do MCA
 mca <- MCA(tea_time, graph = FALSE)
-#plot(mca, invisible= "none" , habillage = "quali")
-plot(mca)
+plot(mca, invisible= "none" , habillage = "quali")
 ```
 Based on the MCA, people who drink black tea are often men and add more often milk or other accompaniment to their tea than they who drink Earl Grey or green tea. Earl grey drinkers, who are more often women than men, add lemon more often than other. People who drink green tea don't do it for slimming effect. Tea drinkers looking for slimming effect add lemon or other accompaniment, but no milk to their tea.
