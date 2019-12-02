@@ -1,11 +1,11 @@
 # Week 5. Dimensionality reduction techniques
 
-### Preparations
+## Preparations
 
 ```{r warning=FALSE, message=FALSE}
 # Set working directory
-#setwd("Z:/Jatko-opinnot/IODS/IODS-project-1")
-setwd("C:/Users/sirja/Documents/IODS-project-1")
+setwd("Z:/Jatko-opinnot/IODS/IODS-project-1")
+#setwd("C:/Users/sirja/Documents/IODS-project-1")
 
 # Access needed libraries
 library("tidyverse")
@@ -24,7 +24,7 @@ str(human)
 
 
 
-### Task 1: Overview of the data
+## Task 1: Overview of the data
 ```{r, fig.width=10, fig.height=10}
 ggpairs(human)
 summary(human)
@@ -32,7 +32,7 @@ summary(human)
 Most variables seem to be quite normally distributed. GNI, maternal mortality and adolescent birth rate are skewed. Many variables correlate. For example expected education and life expectancy have strong positive correlation, wheras maternal mortality life expectancy have strong negative correlation.
 
 
-### Task 2: Principal component analysis
+## Task 2: Principal component analysis
 ```{r, fig.width=10, fig.height=10, warning=FALSE}
 # perform PCA
 pca_human <- prcomp(human)
@@ -46,7 +46,7 @@ biplot(pca_human, cex = c(0.8, 1), col = c("darkgreen", "deeppink2"), xlab = pc_
 
 The figure looks strange because GNI has so much bigger variance than other variables. That's why GNI explains 100% of variation here.  Standardizing the data can solve the problem.
 
-### Task 3 & 4: PCA with standardized data
+## Tasks 3 & 4: PCA with standardized data
 ```{r, fig.width=10, fig.height=10}
 human_scaled <- scale(human)
 pca_human <- prcomp(human_scaled)
@@ -58,7 +58,7 @@ biplot(pca_human, cex = c(0.8, 1), col = c("darkgreen", "deeppink2"), xlab = pc_
 ```
 Now biplot looks much better. From the PC1 axis we can see that 56.1 % of the variation can be explained by education, life expectancy and GNI, and that maternal mortality and adolescent birth rate (arrow to the right) correlate negatively with these variables (arrow to the left). The PC2 axis shows that women's working and representation in parlament explain 16.2% of the variation.
 
-### Task 5: Multiple Correspondence Analysis
+## Task 5: Multiple Correspondence Analysis
 ```{r, fig.width=10, fig.height=10, warning=FALSE}
 # acquire the tea dataset
 data(tea)
@@ -76,8 +76,10 @@ Let's select few variables for MCA
 # select variables
 keep_columns <- c("Tea", "How", "sex", "slimming")
 tea_time <- dplyr::select(tea, one_of(keep_columns))
+
 # do MCA
 mca <- MCA(tea_time, graph = FALSE)
-plot(mca, invisible=c("none"), habillage = "quali")
+#plot(mca, invisible= "none" , habillage = "quali")
+plot(mca)
 ```
 Based on the MCA, people who drink black tea are often men and add more often milk or other accompaniment to their tea than they who drink Earl Grey or green tea. Earl grey drinkers, who are more often women than men, add lemon more often than other. People who drink green tea don't do it for slimming effect. Tea drinkers looking for slimming effect add lemon or other accompaniment, but no milk to their tea.

@@ -1,11 +1,11 @@
 # Week 4. Clustering and classification
 
-### Task 2
+## Preparations
 
 ```{r warning=FALSE, message=FALSE}
 # Set working directory
-#setwd("Z:/Jatko-opinnot/IODS/IODS-project-1")
-setwd("C:/Users/sirja/Documents/IODS-project-1")
+setwd("Z:/Jatko-opinnot/IODS/IODS-project-1")
+#setwd("C:/Users/sirja/Documents/IODS-project-1")
 
 # Access needed libraries
 library("MASS")
@@ -14,6 +14,7 @@ library("corrplot")
 
 ```
 
+## Task 2: Data exploration
 ```{r}
 # load the data
 data("Boston")
@@ -26,8 +27,8 @@ Dataset "Boston" contains housing values in suburbs of Boston. It is a matrix wi
 More information on the data can be found [here](https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/Boston.html).
 
 
-### Task 3
-```{r}
+## Task 3: Correlation matrix
+```{r, fig.width=10, fig.height=10}
 # calculate the correlation matrix and round it
 cor_matrix<-cor(Boston) 
 
@@ -48,7 +49,7 @@ Strongest *negative* correlation can be seen between variables dis & age, dis & 
 Variables with strongest *positive* correlation are rad & tax, nox & indus, nox & age, tax & indus, rm & medv.
 
 
-### Task 4
+## Task 4: Data wrangling, test & train sets
 Standardize the dataset.
 ```{r}
 # center and standardize variables
@@ -112,9 +113,9 @@ correct_classes <- test$crime
 test <- dplyr::select(test, -crime)
 ```
 
-### Task 5
+## Task 5: Linear discriminant analysis
 Fit the linear discriminant analysis on the train set with categorical crime rate as the target variable.
-```{r}
+```{r, fig.width=10, fig.height=10}
 # linear discriminant analysis
 lda.fit <- lda(crime ~ ., data = train)
 
@@ -141,7 +142,7 @@ lda.arrows(lda.fit, myscale = 2)
 ```
 
 
-### Task 6
+## Task 6: Prediction
 ```{r}
 # predict classes with test data
 lda.pred <- predict(lda.fit, newdata = test)
@@ -153,7 +154,7 @@ table(correct = correct_classes, predicted = lda.pred$class)
 The first time I did the prediction, the classifier predicted classes *low* and *high* correctly. For *med_high* and *med_low* there were several false predictions. I tried the prediction again few times and there were false predictions for all other classes but high. This model seems to predict high crime rates accurately, but with lower crime rates there is more uncertainty.
 
 
-### Task 7
+## Task 7: K-means
 
 ```{r}
 data(Boston)
@@ -182,7 +183,7 @@ km <-kmeans(boston_scaled, centers = 3)
 
 Investigate what is the optimal number of clusters and run the algorithm again.
 
-```{r}
+```{r, fig.width=10, fig.height=10}
 set.seed(123)
 
 # determine the number of clusters
@@ -204,7 +205,7 @@ km <-kmeans(boston_scaled, centers = 2)
 ```
 
 Visualize the clusters
-```{r}
+```{r, fig.width=10, fig.height=10}
 # plot the Boston dataset with clusters
 pairs(boston_scaled, col = c("#fc90d9", "#8de6a0")[km$cluster], lower.panel = NULL) 
 

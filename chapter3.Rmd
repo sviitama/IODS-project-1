@@ -1,11 +1,11 @@
 # Week 3: Logistic regression
 
-### Preparations
+## Preparations
 
 ```{r warning=FALSE, message=FALSE}
 # Set working directory
-setwd("C:/Users/sirja/Documents/IODS-project-1")
-#setwd("Z:/Jatko-opinnot/IODS/IODS-project-1")
+#setwd("C:/Users/sirja/Documents/IODS-project-1")
+setwd("Z:/Jatko-opinnot/IODS/IODS-project-1")
 
 # Access needed libraries
 library(tidyverse)
@@ -13,7 +13,7 @@ library(tidyverse)
 ```
 
 
-### Data introduction and hypotheses (tasks 2 & 3)
+## Tasks 2 & 3: Data introduction and hypotheses
 
 ```{r}
 # read the modified and joined dataset
@@ -41,7 +41,7 @@ I hypothesize that the chosen variables and alcohol consumption have following r
 * H4 Going out with friends is connected to high alcohol usage
 
 
-### Data exploration (task 4)
+## Task 4: Data exploration
 ```{r warning=FALSE}
 var <- c("goout", "famsup", "romantic", "famrel", "alc_use", "high_use")
 alc_family <- subset(alc, select = var)
@@ -92,7 +92,7 @@ g2 + geom_boxplot() + ylab("Going out") + xlab("High alcohol usage") + ggtitle("
 Going out with friends seemed to be connected positively with high alcohol usage, whether the student was is a relationship or not. 
 
 
-### Logistic regression (task 5)
+## Task 5: Logistic regression
 ```{r}
 # find the model with glm()
 m <- glm(high_use ~ goout + famsup + famrel + romantic, data = alc, family = "binomial")
@@ -125,7 +125,7 @@ cbind(OR, CI)
 ```
 
 
-### Binary predictions (task 6)
+## Task 6: Binary predictions
 
 ```{r}
 # fit the model
