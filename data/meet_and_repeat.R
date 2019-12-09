@@ -30,9 +30,9 @@ RATS$Group <- factor(RATS$Group)
 # Convert the data sets to long form and add a week variable to BPRS and a Time variable to RATS
 BPRSL <- BPRS %>% gather(key=weeks, value=bprs, -treatment, -subject)
 BPRSL <-  BPRSL %>% mutate(week = as.integer(substr(weeks, 5, 5)))
-RATSL <- RATS %>% gather(key=WD, value=Weight, -ID, -Group) %>%
-  mutate(Time = as.integer(substr(WD, 3,4))) 
+RATSL <- RATS %>% gather(key=WD, value=Weight, -ID, -Group) %>% mutate(Time = as.integer(substr(WD, 3,4))) 
 
+# Compare wide and long datasets
 names(BPRS)
 names(BPRSL)
 str(BPRS)
@@ -46,6 +46,10 @@ str(RATS)
 str(RATSL)
 summary(RATS)
 summary(RATSL)
+
+# In wide data the observations made in each time point are as separate variables. 
+# In lognitudinal data the data in different time points is gathered under one variable.
+# Transforming wide data to longitudinal is a requirement for certain analyses.
 
 # Save the data
 write.csv(BPRSL, "data/BPRSL.txt")
